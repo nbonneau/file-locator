@@ -1,0 +1,8 @@
+{
+    "imports": [
+        "parameters.json",
+        "%rootDir%/data/services.json"
+    ],
+    "user": "%env.USER%",
+    "home": "%env.HOME%"
+}

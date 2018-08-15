@@ -1,0 +1,8 @@
+{
+    "imports": [
+        "data.json"
+    ],
+    "parameters": {
+        "secret": "my_awesome_secret"
+    }
+}

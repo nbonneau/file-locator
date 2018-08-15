@@ -1,0 +1,10 @@
+{
+    "services": {
+        "my_service": {
+            "class": "%parameters.serviceClass%"
+        }
+    },
+    "parameters": {
+        "serviceClass": "%rootDir%/myService.js"
+    }
+}
