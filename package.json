@@ -1,0 +1,27 @@
+{
+  "name": "file-loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "file",
+    "loader",
+    "imports",
+    "json",
+    "yaml",
+    "xml"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "extend": "^3.0.2",
+    "object-path": "^0.11.4",
+    "ref-parser": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2"
+  }
+}
