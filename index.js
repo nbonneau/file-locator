@@ -5,7 +5,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const objectPath = require('object-path');
 const extend = require('extend');
 const RefParser = require('ref-parser');
 
@@ -15,21 +14,20 @@ const RefParser = require('ref-parser');
 
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
         typeof define === 'function' && define.amd ? define(factory) :
-        global.fileLoader = factory();
+        global.fileLocator = factory();
 
 }(this, function factory() {
     'use strict';
 
     return function(opts) {
 
-        const Loader = function(opts) {
+        const FileLocator = function(opts) {
             // Default Loader options
             const options = {
                 env: undefined,
                 data: {},
                 importsKey: 'imports',
-                refParserOptions: {},
-                toObjectPath: false
+                refParserOptions: {}
             };
             // Extend default Loader option with opts argument
             extend(true, options, opts);
@@ -50,8 +48,7 @@ const RefParser = require('ref-parser');
             });
         }
 
-        Loader.EXTENSIONS = ['.json'];
-        Loader.ExtensionLoader = ExtensionLoader;
+        FileLocator.ExtensionLoader = ExtensionLoader;
 
         /**
          * Load file
@@ -60,7 +57,7 @@ const RefParser = require('ref-parser');
          * @param {object|null}  opts      Load options, extended with Loader options
          * @param {boolean|null} noParsing If true, no parse reference key
          */
-        Loader.prototype.load = function(filepath, opts, noParsing) {
+        FileLocator.prototype.load = function(filepath, opts, noParsing) {
             // Override opts argument
             opts = opts ||  {};
             // Extend opts argument with Loader options
@@ -98,14 +95,17 @@ const RefParser = require('ref-parser');
                     if (!noParsing) {
                         this._refParser.parse(data);
                     }
-                    if (opts.toObjectPath) {
-                        return objectPath(data);
-                    }
                     return data;
                 })
         }
 
-        Loader.prototype.loadImports = function(data, opts) {
+        /**
+         * Load imports inside data argument
+         * 
+         * @param {object} data
+         * @param {object} opts
+         */
+        FileLocator.prototype.loadImports = function(data, opts) {
             // Override opts argument
             opts = opts ||  {};
             // Extend opts argument with Loader options
@@ -133,7 +133,7 @@ const RefParser = require('ref-parser');
          * @param {function|null}          loaderCallback Callback loader
          * @return 
          */
-        Loader.prototype.addExtensionLoader = function(extension, loaderCallback) {
+        FileLocator.prototype.addExtensionLoader = function(extension, loaderCallback) {
             // Add loader
             // If extension is not an ExtensionLoader instance, create new ExtensionLoader instance
             this._loaders.push(extension instanceof ExtensionLoader ? extension : new ExtensionLoader(extension, loaderCallback));
@@ -146,12 +146,12 @@ const RefParser = require('ref-parser');
          * @param {string} extension Extension to get loader
          * @return
          */
-        Loader.prototype.getExtensionLoader = function(extension) {
+        FileLocator.prototype.getExtensionLoader = function(extension) {
             // Get the loader extension
             return this._loaders.find((extLoader) => extLoader.extension === overrideExtension(extension));
         }
 
-        return new Loader(opts);
+        return new FileLocator(opts);
     }
 }));
 

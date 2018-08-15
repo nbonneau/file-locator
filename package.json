@@ -1,24 +1,32 @@
 {
-    "name": "file-loader",
+    "name": "file-locator",
     "version": "1.0.0",
-    "description": "",
+    "description": "Load data from files",
     "main": "index.js",
+    "repository": {
+        "url": "https://github.com/nbonneau/file-locator.git",
+        "type": "git"
+    },
     "scripts": {
         "test": "mocha"
     },
     "keywords": [
         "file",
         "loader",
+        "data",
+        "locator",
         "imports",
         "json",
         "yaml",
+        "yml",
         "xml"
     ],
-    "author": "",
+    "author": {
+        "name": "Nicolas BONNEAU"
+    },
     "license": "MIT",
     "dependencies": {
         "extend": "^3.0.2",
-        "object-path": "^0.11.4",
         "ref-parser": "^1.0.1"
     },
     "devDependencies": {
